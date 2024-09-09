@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Forms\Components\Select;
 
 class EquipoResource extends Resource
 {
@@ -44,17 +46,17 @@ class EquipoResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('ip'),
-                TextColumn::make('modelo'),
-                TextColumn::make('marca'),
-                TextColumn::make('serie'),
-                TextColumn::make('usuario'),
+                TextColumn::make('ip')->searchable(),
+                TextColumn::make('modelo')->searchable(),
+                TextColumn::make('marca')->searchable(),
+                TextColumn::make('serie')->searchable(),
+                TextColumn::make('usuario')->searchable(),
                 TextColumn::make('dominio'),
-                TextColumn::make('so'),
+                TextColumn::make('so')->searchable(),
                 TextColumn::make('soversion'),
             ])
             ->filters([
-                //
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
