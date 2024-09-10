@@ -30,16 +30,13 @@ class EquipoResource extends Resource
 
             ->schema([
                 TextInput::make('ip'),
-                TextInput::make('modelo'),
                 TextInput::make('marca'),
                 TextInput::make('serie'),
                 TextInput::make('usuario'),
                 TextInput::make('dominio'),
                 TextInput::make('so'),
-                TextInput::make('soversion'),
-                TextInput::make('location'),
-
-            ]);
+            ])
+            ->columns(4);
     }
 
     public static function table(Table $table): Table
@@ -47,13 +44,11 @@ class EquipoResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('ip')->searchable(),
-                TextColumn::make('modelo')->searchable(),
                 TextColumn::make('marca')->searchable(),
                 TextColumn::make('serie')->searchable(),
                 TextColumn::make('usuario')->searchable(),
                 TextColumn::make('dominio'),
                 TextColumn::make('so')->searchable(),
-                TextColumn::make('soversion'),
             ])
             ->filters([
 
@@ -66,12 +61,6 @@ class EquipoResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public function myCustomAction()
-    {
-        // Lógica que se ejecutará al hacer clic en el botón
-        Filament::notify('success', '¡Acción ejecutada con éxito!');
     }
 
     public static function getRelations(): array

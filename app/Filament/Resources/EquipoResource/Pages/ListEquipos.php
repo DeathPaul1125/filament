@@ -54,12 +54,26 @@ class ListEquipos extends ListRecords
         foreach ($items as $item) {
             $equipo = new Equipo();
             $assetBasicInfo = $item['assetBasicInfo'];
-            //$assetCustom = $item['assetCustom'];
+
+            if (isset($item['assetCustom'])) {
+                $assetCustom = $item['assetCustom'];
+
+                if (empty($assetCustom)) {
+                    $equipo->marca = $assetCustom['manufacturer'];
+                    $equipo->serie = $assetCustom['serialNumber'];
+                    $equipo->modelo = $assetCustom['model'];
+                } else {
+                    $equipo->marca = ($assetCustom['manufacturer'] ?? "NULL");
+                    $equipo->serie = ($assetCustom['serialNumber'] ?? "NULL");
+                    $equipo->modelo = ($assetCustom['model'] ?? "NULL");
+                }
+            } else {
+                $equipo->marca = "NULL";
+                $equipo->serie = "NULL";
+                $equipo->modelo = "NULL";
+            }
 
             $equipo->ip = ($assetBasicInfo['ipAddress'] ?? "NULL");
-            $equipo->marca = "NULL";
-            $equipo->serie = "NULL";
-            $equipo->modelo = "NULL";
             $equipo->usuario = ($assetBasicInfo['userName'] ?? "NULL");
             $equipo->dominio = ($assetBasicInfo['domain'] ?? "NULL");
             $equipo->so = ($assetBasicInfo['type'] ?? "NULL");
